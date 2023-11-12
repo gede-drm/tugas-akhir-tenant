@@ -24,6 +24,7 @@ class SettingFragment : Fragment() {
     var tenant_name = ""
     var tenant_type = ""
     var token = ""
+    var status = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -179,7 +180,6 @@ class SettingFragment : Fragment() {
                 return params
             }
         }
-        stringRequest.setShouldCache(false)
         q.add(stringRequest)
     }
 
@@ -191,7 +191,7 @@ class SettingFragment : Fragment() {
             Method.POST, url, Response.Listener {
                 val obj = JSONObject(it)
                 if(obj.getString("status")=="success") {
-                    var status = obj.getString("tenant_status")
+                    status = obj.getString("tenant_status")
                     if(status == "open"){
                         binding.txtStatusSt.text = "Buka"
                         binding.btnSwitchStatus.text = "Tutup Toko"
@@ -233,7 +233,12 @@ class SettingFragment : Fragment() {
             Method.POST, url, Response.Listener {
                 val obj = JSONObject(it)
                 if(obj.getString("status")=="success") {
-                    Toast.makeText(activity, "Toko Berhasil dibuka!", Toast.LENGTH_SHORT).show()
+                    if(status == "open"){
+                        Toast.makeText(activity, "Toko Berhasil ditutup!", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(activity, "Toko Berhasil dibuka!", Toast.LENGTH_SHORT).show()
+                    }
                     getStatus()
                 }
                 else{
