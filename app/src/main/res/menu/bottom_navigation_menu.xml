@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_notes_24"
+        android:title="Pesanan" />
+    <item
+        android:id="@+id/itemHisOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_history_24"
+        android:title="Histori Pesanan" />
+    <item
+        android:id="@+id/itemItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_shopping_bag_24"
+        android:title="Item Tenant" />
+    <item
+        android:id="@+id/itemSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Pengaturan" />
+</menu>

@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
         val USERNAME = "USERNAME"
         val TENANTID = "TENANTID"
         val TENANTNAME = "TENANTNAME"
+        val TENANTTYPE = "TENANTTYPE"
         val TOKEN = "TOKEN"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +52,17 @@ class LoginActivity : AppCompatActivity() {
                         var resultDb = obj.getString("status")
                         if (resultDb == "success") {
                             var array = obj.getJSONObject("data")
-                            var username = array["username"]
+                            var username = inputUsername
                             var tenant_id = array["tenant_id"]
                             var tenant_name = array["tenant_name"]
+                            var tenant_type = array["tenant_type"]
                             var token = array["token"]
 
                             var editor: SharedPreferences.Editor = shared.edit()
                             editor.putString(USERNAME, username.toString())
                             editor.putString(TENANTNAME, tenant_name.toString())
                             editor.putInt(TENANTID, tenant_id.toString().toInt())
+                            editor.putString(TENANTTYPE, tenant_type.toString())
                             editor.putString(TOKEN, token.toString())
                             editor.apply()
 

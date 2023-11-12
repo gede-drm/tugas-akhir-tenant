@@ -5,6 +5,9 @@
     <color name="blue_700">#0A3A6B</color>
     <color name="brown_200">#C19F7C</color>
     <color name="brown_700">#53330A</color>
+    <color name="tertiary_text">#2B1700</color>
+    <color name="tertiary_container">#ffddbb</color>
+    <color name="error_bg">#ba1a1a</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
