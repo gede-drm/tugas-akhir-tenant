@@ -42,7 +42,7 @@
                 android:layout_marginStart="8dp"
                 android:src="@drawable/baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/imgProductPL"
-                app:layout_constraintTop_toBottomOf="@+id/txtProStockPL" />
+                app:layout_constraintTop_toBottomOf="@+id/txtProSoldPL" />
 
             <TextView
                 android:id="@+id/txtProNamePL"
@@ -76,26 +76,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtProPricePL" />
 
             <TextView
+                android:id="@+id/txtProSoldPL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Terjual: 3"
+                app:layout_constraintStart_toEndOf="@+id/imgProductPL"
+                app:layout_constraintTop_toBottomOf="@+id/txtProStockPL" />
+
+            <TextView
                 android:id="@+id/txtProRatingPL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="4.5"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txtProStockPL" />
+                app:layout_constraintTop_toBottomOf="@+id/txtProSoldPL" />
 
             <Button
                 android:id="@+id/btnDetailPL"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Detail"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtProStockPL" />
+                app:layout_constraintTop_toTopOf="@+id/txtProRatingPL" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

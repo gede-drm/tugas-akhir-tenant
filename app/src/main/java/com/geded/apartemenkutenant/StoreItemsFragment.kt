@@ -89,7 +89,7 @@ class StoreItemsFragment : Fragment() {
                     if(tenant_type == "product") {
                         for (i in 0 until data.length()) {
                             var proObj = data.getJSONObject(i)
-                            val pro = Product(proObj.getInt("id"), proObj.getString("name"), "", proObj.getString("photo_url"), proObj.getDouble("price"), proObj.getInt("stock"), proObj.getDouble("rating"))
+                            val pro = Product(proObj.getInt("id"), proObj.getString("name"), "", proObj.getString("photo_url"), proObj.getDouble("price"), proObj.getInt("stock"), proObj.getInt("sold"), proObj.getDouble("rating"))
                             products.add(pro)
                         }
                     }

@@ -29,6 +29,7 @@ class ProductListAdapter(val products:ArrayList<Product>, val context: FragmentA
             txtProNamePL.text = products[position].name
             txtProPricePL.text = "Harga: Rp$price"
             txtProStockPL.text = "Stok: " + products[position].stock.toString()
+            txtProSoldPL.text = "Terjual: " + products[position].sold.toString()
             txtProRatingPL.text = products[position].rating.toString()
         }
         holder.binding.btnDetailPL.setOnClickListener {
