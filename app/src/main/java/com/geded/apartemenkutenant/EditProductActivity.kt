@@ -1,8 +1,6 @@
 package com.geded.apartemenkutenant
 
-import android.R
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,129 +10,150 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.android.volley.DefaultRetryPolicy
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.geded.apartemenkutenant.databinding.ActivityAddServiceBinding
+import com.geded.apartemenkutenant.databinding.ActivityEditProductBinding
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 
-class AddServiceActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityAddServiceBinding
+class EditProductActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEditProductBinding
     val REQUEST_GALLERY = 2
-    var tenant_id = 0
     var token = ""
-    var uriBase64 = ""
+    var product_id = 0
+    var base64Image = ""
+    var initPhotoUrl = ""
+    companion object{
+        val PRODUCT_ID = "PRODUCT_ID"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddServiceBinding.inflate(layoutInflater)
+        binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        product_id = intent.getIntExtra(ProductDetailActivity.PRODUCT_ID, 0)
         var shared: SharedPreferences = getSharedPreferences(Global.sharedFile, Context.MODE_PRIVATE)
-        tenant_id = shared.getInt(LoginActivity.TENANTID,0)
         token = shared.getString(LoginActivity.TOKEN.toString(),"").toString()
 
-        val adapterPricePer = ArrayAdapter(this, R.layout.simple_list_item_1, arrayListOf("Paket", "Jam"))
-        adapterPricePer.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerPriceperAS.adapter = adapterPricePer
+        getProductDetail()
 
-        binding.btnPickPhotoAS.setOnClickListener {
+        binding.btnResetPhotoEP.setOnClickListener {
+            Picasso.get().load(initPhotoUrl).into(binding.imgViewProPhotoEP)
+            base64Image = ""
+        }
+
+        binding.btnPickPhotoEP.setOnClickListener {
             takeGallery()
         }
 
-        binding.btnSaveSvcAS.setOnClickListener {
-            val name = binding.txtSvcNameAS.text.toString()
-            val description = binding.txtSvcDescAS.text.toString()
-            var pricePer = binding.spinnerPriceperAS.selectedItem.toString()
-            if(pricePer == "Jam"){
-                pricePer = "hour"
-            }
-            else{
-                pricePer = "package"
-            }
-            var permit_need = false
-            if(binding.switchPermitNeedAS.isChecked){
-                permit_need = true
-            }
-            val priceStr = binding.txtSvcPriceAS.text.toString()
-            if(name != "" && description != "" && priceStr != ""){
+        binding.btnSaveProEP.setOnClickListener {
+            val name = binding.txtProNameEP.text.toString()
+            val description = binding.txtProDescEP.text.toString()
+            val priceStr = binding.txtProPriceEP.text.toString()
+            if(name != "" && description != "" && priceStr != "") {
                 val price = priceStr.toDouble()
-                if(uriBase64 != "") {
-                        if (price > 0) {
-                            addService(name, description, price, pricePer, permit_need)
-                        } else {
-                            Toast.makeText(this, "Harga Layanan Harus Lebih Besar dari Rp0!", Toast.LENGTH_SHORT).show()
-                        }
-                    } else{
-                        Toast.makeText(this, "Terjadi Kesalahan dalam Pengambilan Foto, Silakan Pilih Foto Kembali", Toast.LENGTH_SHORT).show()
-                    }
-            } else{
-                Toast.makeText(this, "Nama/Deskripsi/Harga Layanan Tidak Boleh Kosong", Toast.LENGTH_SHORT).show()
+                if (price > 0) {
+                    updateProduct(name, description, price.toString(), base64Image)
+                }
+                else{
+                    Toast.makeText(this, "Harga Produk Harus Lebih Besar dari Rp0!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else {
+                Toast.makeText(this, "Nama/Deskripsi/Harga Produk Tidak Boleh Kosong", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun addService(name:String, description:String, price:Double, pricePer:String, permit_need:Boolean){
+    fun getProductDetail(){
         var q = Volley.newRequestQueue(this)
-        val url = Global.urlWS + "addservice"
+        val url = Global.urlWS + "getproductdetail"
 
         val stringRequest = object : StringRequest(
             Method.POST, url,
             Response.Listener {
                 val obj = JSONObject(it)
-                Log.d("VOLLEY SUCCESS", it)
                 if (obj.getString("status") == "success") {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setCancelable(false)
-                    builder.setTitle("Layanan Tersimpan")
-                    builder.setMessage("Data Layanan Telah Tersimpan.")
-                    builder.setPositiveButton("OK") { dialog, which ->
-                        this.finish()
-                    }
-                    builder.create().show()
-                } else {
+                    val proObj = obj.getJSONObject("data")
+                    initPhotoUrl = proObj.getString("photo_url")
+                    Picasso.get().load(initPhotoUrl).into(binding.imgViewProPhotoEP)
+                    binding.txtProNameEP.setText(proObj.getString("name"))
+                    binding.txtProPriceEP.setText(proObj.getDouble("price").toInt().toString())
+                    binding.txtProDescEP.setText(proObj.getString("description"))
+                }
+            },
+            Response.ErrorListener {
+                val builder = AlertDialog.Builder(this)
+                builder.setCancelable(false)
+                builder.setTitle("Terjadi Masalah")
+                builder.setMessage("Terdapat Masalah Jaringan\nSilakan Coba Lagi Nanti.")
+                builder.setPositiveButton("OK"){dialog, which->
+                    this.finish()
+                }
+                builder.create().show()
+            }
+        )
+        {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["product_id"] = product_id.toString()
+                params["token"] = token
+                return params
+            }
+        }
+        q.add(stringRequest)
+    }
+
+    fun updateProduct(name:String, description:String, price:String, image:String){
+        var q = Volley.newRequestQueue(this)
+        val url = Global.urlWS + "updateproduct"
+
+        val stringRequest = object : StringRequest(
+            Method.POST, url,
+            Response.Listener {
+                val obj = JSONObject(it)
+                if (obj.getString("status") == "success") {
+                    Toast.makeText(this, "Perubahan Data Produk Berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                else{
                     val builder = AlertDialog.Builder(this)
                     builder.setCancelable(false)
                     builder.setTitle("Terjadi Masalah")
                     builder.setMessage("Terdapat Masalah Jaringan\nSilakan Coba Lagi Nanti.")
-                    builder.setPositiveButton("OK") { dialog, which ->
+                    builder.setPositiveButton("OK"){dialog, which->
                         this.finish()
                     }
                     builder.create().show()
                 }
             },
             Response.ErrorListener {
-                Log.d("ERROR VOLLEY", it.message.toString())
                 val builder = AlertDialog.Builder(this)
                 builder.setCancelable(false)
                 builder.setTitle("Terjadi Masalah")
                 builder.setMessage("Terdapat Masalah Jaringan\nSilakan Coba Lagi Nanti.")
-                builder.setPositiveButton("OK") { dialog, which ->
+                builder.setPositiveButton("OK"){dialog, which->
                     this.finish()
                 }
                 builder.create().show()
             }
-        ) {
+        )
+        {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
+                params["product_id"] = product_id.toString()
                 params["name"] = name
                 params["description"] = description
-                params["price"] = price.toString()
-                params["pricePer"] = pricePer
-                params["permit_need"] = permit_need.toString()
-                params["image"] = uriBase64
-                params["tenant_id"] = tenant_id.toString()
-                params["token"] = token.toString()
+                params["price"] = price
+                params["image"] = image
+                params["token"] = token
                 return params
             }
         }
-        val retryPolicy =
-            DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        stringRequest.setRetryPolicy(retryPolicy);
         q.add(stringRequest)
     }
 
@@ -161,8 +180,8 @@ class AddServiceActivity : AppCompatActivity() {
             if(requestCode == REQUEST_GALLERY){
                 val extras = data?.data
                 val imageBitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, extras)
-                binding.imgViewSvcPhotoAS.setImageURI(extras)
-                uriBase64 = getImageUriFromBitmap(imageBitmap)
+                binding.imgViewProPhotoEP.setImageURI(extras)
+                base64Image = getImageUriFromBitmap(imageBitmap)
             }
         }
     }

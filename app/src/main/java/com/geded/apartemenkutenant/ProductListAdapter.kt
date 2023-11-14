@@ -25,7 +25,7 @@ class ProductListAdapter(val products:ArrayList<Product>, val context: FragmentA
         val url = products[position].photo_url
         val price = Helper.formatter(products[position].price)
         with(holder.binding) {
-            Picasso.get().load(url).resize(200, 134).into(imgProductPL)
+            Picasso.get().load(url).into(imgProductPL)
             txtProNamePL.text = products[position].name
             txtProPricePL.text = "Harga: Rp$price"
             txtProStockPL.text = "Stok: " + products[position].stock.toString()
@@ -34,7 +34,7 @@ class ProductListAdapter(val products:ArrayList<Product>, val context: FragmentA
         }
         holder.binding.btnDetailPL.setOnClickListener {
             val intent = Intent(this.context, ProductDetailActivity::class.java)
-            intent.putExtra(ProductDetailActivity.PRODUCT_ID, products[position].id.toString())
+            intent.putExtra(ProductDetailActivity.PRODUCT_ID, products[position].id)
             context?.startActivity(intent)
         }
     }

@@ -46,9 +46,11 @@ class AddProductActivity : AppCompatActivity() {
         binding.btnSaveProAP.setOnClickListener {
             val name = binding.txtProNameAP.text.toString()
             val description = binding.txtProDescAP.text.toString()
-            val price = binding.txtProPriceAP.text.toString().toDouble()
-            if(name != "" && description != "" && price > 0){
-                if(uriBase64 != ""){
+            val priceStr = binding.txtProPriceAP.text.toString()
+            if(name != "" && description != "" && priceStr != ""){
+                val price = priceStr.toDouble()
+                if(price > 0){
+                if(uriBase64 != "") {
                     var q = Volley.newRequestQueue(this)
                     val url = Global.urlWS + "addproduct"
 
@@ -56,22 +58,21 @@ class AddProductActivity : AppCompatActivity() {
                         Method.POST, url,
                         Response.Listener {
                             val obj = JSONObject(it)
-                            if(obj.getString("status")=="success") {
+                            if (obj.getString("status") == "success") {
                                 val builder = AlertDialog.Builder(this)
                                 builder.setCancelable(false)
-                                builder.setTitle("Produk Masuk Tersimpan")
+                                builder.setTitle("Produk Tersimpan")
                                 builder.setMessage("Data Produk Telah Tersimpan.")
                                 builder.setPositiveButton("OK") { dialog, which ->
                                     this.finish()
                                 }
                                 builder.create().show()
-                            }
-                            else{
+                            } else {
                                 val builder = AlertDialog.Builder(this)
                                 builder.setCancelable(false)
                                 builder.setTitle("Terjadi Masalah")
                                 builder.setMessage("Terdapat Masalah Jaringan\nSilakan Coba Lagi Nanti.")
-                                builder.setPositiveButton("OK"){dialog, which->
+                                builder.setPositiveButton("OK") { dialog, which ->
                                     this.finish()
                                 }
                                 builder.create().show()
@@ -83,13 +84,12 @@ class AddProductActivity : AppCompatActivity() {
                             builder.setCancelable(false)
                             builder.setTitle("Terjadi Masalah")
                             builder.setMessage("Terdapat Masalah Jaringan\nSilakan Coba Lagi Nanti.")
-                            builder.setPositiveButton("OK"){dialog, which->
+                            builder.setPositiveButton("OK") { dialog, which ->
                                 this.finish()
                             }
                             builder.create().show()
                         }
-                    )
-                    {
+                    ) {
                         override fun getParams(): MutableMap<String, String> {
                             val params = HashMap<String, String>()
                             params["name"] = name
@@ -101,9 +101,14 @@ class AddProductActivity : AppCompatActivity() {
                             return params
                         }
                     }
-                    val retryPolicy = DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                    val retryPolicy =
+                        DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                     stringRequest.setRetryPolicy(retryPolicy);
                     q.add(stringRequest)
+                }
+                    else{
+                    Toast.makeText(this, "Harga Produk Harus Lebih Besar dari Rp0!", Toast.LENGTH_SHORT).show()
+                }
                 }
                 else{
                     Toast.makeText(this, "Terjadi Kesalahan dalam Pengambilan Foto, Silakan Pilih Foto Kembali", Toast.LENGTH_SHORT).show()

@@ -46,14 +46,16 @@
 
             <TextView
                 android:id="@+id/txtProNamePL"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/public_sans_semibold"
                 android:text="Product Name"
                 android:textColor="@color/blue_700"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgProductPL"
                 app:layout_constraintTop_toTopOf="parent" />
 

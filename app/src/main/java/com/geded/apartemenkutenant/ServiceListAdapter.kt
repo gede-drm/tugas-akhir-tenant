@@ -39,15 +39,16 @@ class ServiceListAdapter(val services:ArrayList<Service>, val context: FragmentA
             availability = "Tidak"
         }
         with(holder.binding) {
-            Picasso.get().load(url).resize(200, 134).into(imgServiceSL)
+            Picasso.get().load(url).into(imgServiceSL)
             txtSvcNameSL.text = services[position].name
             txtSvcPriceSL.text = "Harga: Rp$price/$pricePer"
             txtSvcAvailSL.text = "Tersedia: $availability"
+            txtSvcSoldSL.text = "Terjual: " + services[position].sold.toString()
             txtSvcRatingSL.text = services[position].rating.toString()
         }
         holder.binding.btnDetailSL.setOnClickListener {
             val intent = Intent(this.context, ServiceDetailActivity::class.java)
-            intent.putExtra(ServiceDetailActivity.SERVICE_ID, services[position].id.toString())
+            intent.putExtra(ServiceDetailActivity.SERVICE_ID, services[position].id)
             context?.startActivity(intent)
         }
     }

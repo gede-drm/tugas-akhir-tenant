@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddServiceActivity">
+    tools:context=".EditServiceActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -18,22 +18,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/btnResetPhotoES"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Reset"
+                android:textSize="14sp"
+                app:icon="@drawable/baseline_undo_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgViewSvcPhotoES" />
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputLayoutSvcPriceAS"
+                android:id="@+id/txtInputLayoutSvcPriceES"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:hint="Harga Layanan"
+                android:hint="Harga Produk"
                 app:boxBackgroundColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcDescAS">
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcDescES">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSvcPriceAS"
+                    android:id="@+id/txtSvcPriceES"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -42,7 +55,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputLayoutSvcDescAS"
+                android:id="@+id/txtInputLayoutSvcDescES"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,10 +66,10 @@
                 app:boxBackgroundColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcNameAS">
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcNameES">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSvcDescAS"
+                    android:id="@+id/txtSvcDescES"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNone"
@@ -65,7 +78,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputLayoutSvcNameAS"
+                android:id="@+id/txtInputLayoutSvcNameES"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,10 +89,10 @@
                 app:boxBackgroundColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTitleAddService">
+                app:layout_constraintTop_toBottomOf="@+id/txtTitleEditService">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSvcNameAS"
+                    android:id="@+id/txtSvcNameES"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
@@ -88,50 +101,50 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/txtTitleAddService"
+                android:id="@+id/txtTitleEditService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/public_sans_semibold"
-                android:text="Tambahkan Layanan"
+                android:text="Edit Layanan"
                 android:textColor="@color/blue_700"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewFL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Foto Layanan"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switchPermitNeedAS" />
+                app:layout_constraintTop_toBottomOf="@+id/switchPermitNeedES" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textViewHDL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Harga per"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcPriceAS" />
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSvcPriceES" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/textViewPermDL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Perizinan"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerPriceperAS" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPriceperES" />
 
             <ImageView
-                android:id="@+id/imgViewSvcPhotoAS"
+                android:id="@+id/imgViewSvcPhotoES"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="24dp"
@@ -139,37 +152,38 @@
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFL"
                 app:srcCompat="@drawable/baseline_broken_image_24" />
 
             <Button
-                android:id="@+id/btnPickPhotoAS"
+                android:id="@+id/btnPickPhotoES"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:text="Pilih Foto Layanan dari Galeri"
+                android:text="Ubah Foto Layanan"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgViewSvcPhotoAS" />
+                app:layout_constraintStart_toEndOf="@+id/btnResetPhotoES"
+                app:layout_constraintTop_toBottomOf="@+id/imgViewSvcPhotoES" />
 
             <Button
-                android:id="@+id/btnSaveSvcAS"
+                android:id="@+id/btnSaveSvcES"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:text="Simpan Produk"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnPickPhotoAS" />
+                app:layout_constraintTop_toBottomOf="@+id/btnPickPhotoES" />
 
             <Spinner
-                android:id="@+id/spinnerPriceperAS"
+                android:id="@+id/spinnerPriceperES"
                 style="@android:style/Widget.Material.Spinner.Underlined"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -177,10 +191,10 @@
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewHDL" />
 
             <Switch
-                android:id="@+id/switchPermitNeedAS"
+                android:id="@+id/switchPermitNeedES"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
@@ -189,7 +203,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewPermDL" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

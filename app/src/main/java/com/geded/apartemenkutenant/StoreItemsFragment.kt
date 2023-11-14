@@ -96,7 +96,7 @@ class StoreItemsFragment : Fragment() {
                     else{
                         for (i in 0 until data.length()) {
                             var svcObj = data.getJSONObject(i)
-                            val svc = Service(svcObj.getInt("id"), svcObj.getString("name"), "", svcObj.getInt("permit_need"), svcObj.getString("photo_url"), svcObj.getString("pricePer"), svcObj.getDouble("price"), svcObj.getInt("availability"), svcObj.getDouble("rating"))
+                            val svc = Service(svcObj.getInt("id"), svcObj.getString("name"), "", svcObj.getInt("permit_need"), svcObj.getString("photo_url"), svcObj.getString("pricePer"), svcObj.getDouble("price"), svcObj.getInt("availability"), svcObj.getInt("sold"), svcObj.getDouble("rating"))
                             services.add(svc)
                         }
                     }

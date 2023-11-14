@@ -10,13 +10,11 @@
         android:id="@+id/txtProRatingPD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="4.5"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/txtProStockPD" />
 
     <ImageView
@@ -79,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtProNamePD" />
 
     <TextView
-        android:id="@+id/txtProPricePD3"
+        android:id="@+id/txtProSoldPD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -111,14 +109,16 @@
         android:fontFamily="sans-serif-medium"
         android:text="Deskripsi"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtProPricePD3" />
+        app:layout_constraintTop_toBottomOf="@+id/txtProSoldPD" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txtProDescPD"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:text="Lorem Ipsum dolor sit amet"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -128,7 +128,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:text="Edit Produk"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,12 +154,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/txtProDescPD">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

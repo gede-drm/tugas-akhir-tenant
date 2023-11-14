@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -41,7 +42,7 @@
                 android:layout_marginStart="8dp"
                 android:src="@drawable/baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/imgServiceSL"
-                app:layout_constraintTop_toBottomOf="@+id/txtSvcAvailSL" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSvcSoldSL" />
 
             <TextView
                 android:id="@+id/txtSvcRatingSL"
@@ -50,18 +51,20 @@
                 android:layout_marginStart="2dp"
                 android:text="4.5"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/txtSvcAvailSL" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSvcSoldSL" />
 
             <TextView
                 android:id="@+id/txtSvcNameSL"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/public_sans_semibold"
                 android:text="Service Name"
                 android:textColor="@color/blue_700"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgServiceSL"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,18 +86,26 @@
                 app:layout_constraintStart_toEndOf="@+id/imgServiceSL"
                 app:layout_constraintTop_toBottomOf="@+id/txtSvcPriceSL" />
 
+            <TextView
+                android:id="@+id/txtSvcSoldSL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Terjual: 0"
+                app:layout_constraintStart_toEndOf="@+id/imgServiceSL"
+                app:layout_constraintTop_toBottomOf="@+id/txtSvcAvailSL" />
+
             <Button
                 android:id="@+id/btnDetailSL"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Detail"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtSvcAvailSL" />
+                app:layout_constraintTop_toTopOf="@+id/txtSvcRatingSL" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
