@@ -47,9 +47,9 @@
             android:id="@+id/txtProDescAP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="text|textNoSuggestions"
-            android:maxLines="1" />
+            android:imeOptions="actionNone"
+            android:inputType="text|textImeMultiLine|textMultiLine|textNoSuggestions"
+            android:maxLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

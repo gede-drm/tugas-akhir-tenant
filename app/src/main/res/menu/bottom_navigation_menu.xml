@@ -6,13 +6,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_notes_24"
-        android:title="Pesanan" />
+        android:title="Transaksi" />
     <item
         android:id="@+id/itemHisOrders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_history_24"
-        android:title="Histori Pesanan" />
+        android:title="Histori Transaksi" />
     <item
         android:id="@+id/itemItems"
         android:layout_width="wrap_content"
