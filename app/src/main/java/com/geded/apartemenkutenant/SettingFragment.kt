@@ -241,6 +241,9 @@ class SettingFragment : Fragment() {
                     }
                     getStatus()
                 }
+                else if(obj.getString("status")=="outofservicehour"){
+                    Toast.makeText(activity, "Tidak Dapat Membuka Toko di luar Jam Layanan Toko Anda!", Toast.LENGTH_SHORT).show()
+                }
                 else{
                     val builder = AlertDialog.Builder(activity)
                     builder.setCancelable(false)
