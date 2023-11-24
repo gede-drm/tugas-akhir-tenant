@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionNone"
             android:inputType="text|textImeMultiLine|textMultiLine|textNoSuggestions"
+            android:maxLength="256"
             android:maxLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
             android:inputType="text|textNoSuggestions"
+            android:maxLength="100"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
