@@ -77,10 +77,10 @@ class ServiceDetailActivity : AppCompatActivity() {
                     val price = Helper.formatter(svcObj.getDouble("price"))
                     var permitNeed = ""
                     if(svcObj.getInt("permit_need") == 0){
-                        permitNeed = "Perlu"
+                        permitNeed = "Tidak Perlu"
                     }
                     else{
-                        permitNeed = "Tidak Perlu"
+                        permitNeed = "Perlu"
                     }
                     availability = svcObj.getInt("availability") != 0
                     Picasso.get().load(url).into(binding.imgViewSvcPhotoSD)
