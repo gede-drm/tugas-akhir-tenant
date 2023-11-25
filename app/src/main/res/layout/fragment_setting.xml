@@ -226,6 +226,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                 <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Pembayaran Tunai"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <TextView
                     android:id="@+id/txtTypeSt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,6 +274,16 @@
                     android:text="Ya/Tidak"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtCloseHourSt" />
+
+                <TextView
+                    android:id="@+id/txtCashSt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Ya/Tidak"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDeliverySt" />
 
                 <TextView
                     android:id="@+id/txtBankSt"
@@ -311,7 +331,7 @@
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

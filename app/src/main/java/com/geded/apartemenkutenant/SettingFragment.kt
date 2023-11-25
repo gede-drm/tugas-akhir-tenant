@@ -154,7 +154,17 @@ class SettingFragment : Fragment() {
                     else{
                         delivery = "Ya"
                     }
+
+                    var cash = ""
+                    if(array["cash"].toString().toInt() == 0){
+                        cash = "Tidak"
+                    }
+                    else{
+                        cash = "Ya"
+                    }
+
                     binding.txtDeliverySt.text = delivery
+                    binding.txtCashSt.text = cash
 
                     binding.progressBarSt.isVisible = false
                     binding.txtTenantNameSt.isVisible = true
