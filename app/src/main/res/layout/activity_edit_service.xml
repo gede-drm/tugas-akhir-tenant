@@ -75,7 +75,8 @@
                     android:imeOptions="actionNone"
                     android:inputType="text|textImeMultiLine|textMultiLine|textNoSuggestions"
                     android:maxLength="256"
-                    android:maxLines="3" />
+                    android:maxLines="3"
+                    android:minLines="3" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
