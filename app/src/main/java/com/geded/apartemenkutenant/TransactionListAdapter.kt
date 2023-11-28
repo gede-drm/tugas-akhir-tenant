@@ -36,7 +36,7 @@ class TransactionListAdapter( val transactions:ArrayList<TransactionList>, val c
                 txtRemainingQtyTL.text = ""
             }
             else{
-                txtRemainingQtyTL.text = transactions[position].remainingProductQty.toString() + " Item lainnya"
+                txtRemainingQtyTL.text = "+" + transactions[position].remainingProductQty.toString() + " Item lainnya"
             }
         }
     }
