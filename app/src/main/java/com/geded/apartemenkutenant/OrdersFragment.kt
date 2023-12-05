@@ -45,13 +45,20 @@ class OrdersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.refreshLayoutOrders.setOnRefreshListener {
-            binding.recViewOrders.isVisible = false
-            getData()
+            if(binding.progressBarOrder.visibility == View.INVISIBLE) {
+                binding.recViewOrders.isVisible = false
+                getData()
+            }
+            else{
+                binding.refreshLayoutOrders.isRefreshing = false
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        binding.recViewOrders.visibility = View.INVISIBLE
+        binding.progressBarOrder.visibility = View.VISIBLE
         getData()
     }
 
@@ -112,9 +119,10 @@ class OrdersFragment : Fragment() {
         var recyclerView = binding.recViewOrders
         recyclerView.layoutManager = lm
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = TransactionListAdapter(transactions, this.activity)
+        recyclerView.adapter = TransactionListAdapter(transactions, tenant_type, this.activity)
         recyclerView.isVisible = true
         binding.txtEmptyOL.visibility = View.GONE
+        binding.progressBarOrder.visibility = View.INVISIBLE
         binding.refreshLayoutOrders.isRefreshing = false
     }
 }

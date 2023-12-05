@@ -1,13 +1,15 @@
 package com.geded.apartemenkutenant
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.geded.apartemenkutenant.databinding.LayoutTransactionListBinding
 import com.squareup.picasso.Picasso
 
-class TransactionListAdapter( val transactions:ArrayList<TransactionList>, val context: FragmentActivity?):
+class TransactionListAdapter( val transactions:ArrayList<TransactionList>, val tenant_type:String, val context: FragmentActivity?):
     RecyclerView.Adapter<TransactionListAdapter.TransactionListViewHolder>() {
     class TransactionListViewHolder(val binding: LayoutTransactionListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -37,6 +39,30 @@ class TransactionListAdapter( val transactions:ArrayList<TransactionList>, val c
             }
             else{
                 txtRemainingQtyTL.text = "+" + transactions[position].remainingProductQty.toString() + " Item lainnya"
+            }
+            if(transactions[position].status == "Dibatalkan"){
+                txtStatusTL.setTextColor(ContextCompat.getColor(txtStatusTL.context, R.color.error_bg))
+            }
+            else{
+                txtStatusTL.setTextColor(ContextCompat.getColor(txtStatusTL.context, R.color.blue_500))
+            }
+        }
+        holder.binding.btnDetailTL.setOnClickListener {
+            if (tenant_type == "product"){
+                val intent = Intent(this.context, DetailTransactionProductActivity::class.java)
+                intent.putExtra(
+                    DetailTransactionProductActivity.TRANSACTION_ID,
+                    transactions[position].id
+                )
+                context?.startActivity(intent)
+            }
+            else{
+                val intent = Intent(this.context, DetailTransactionProductActivity::class.java)
+                intent.putExtra(
+                    DetailTransactionServiceActivity.TRANSACTION_ID,
+                    transactions[position].id
+                )
+                context?.startActivity(intent)
             }
         }
     }

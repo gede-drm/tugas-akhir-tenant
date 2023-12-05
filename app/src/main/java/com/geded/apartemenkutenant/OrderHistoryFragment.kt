@@ -44,13 +44,20 @@ class OrderHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.refreshLayoutHisOrders.setOnRefreshListener {
-            binding.recViewHisOrders.isVisible = false
-            getData()
+            if(binding.progressBarOrderHis.visibility == View.INVISIBLE) {
+                binding.recViewHisOrders.isVisible = false
+                getData()
+            }
+            else{
+                binding.refreshLayoutHisOrders.isRefreshing = false
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        binding.recViewHisOrders.visibility = View.INVISIBLE
+        binding.progressBarOrderHis.visibility = View.VISIBLE
         getData()
     }
 
@@ -111,9 +118,10 @@ class OrderHistoryFragment : Fragment() {
         var recyclerView = binding.recViewHisOrders
         recyclerView.layoutManager = lm
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = TransactionListAdapter(transactions, this.activity)
+        recyclerView.adapter = TransactionListAdapter(transactions,tenant_type, this.activity)
         recyclerView.isVisible = true
         binding.txtEmptyHOL.visibility = View.GONE
+        binding.progressBarOrderHis.visibility = View.INVISIBLE
         binding.refreshLayoutHisOrders.isRefreshing = false
     }
 
