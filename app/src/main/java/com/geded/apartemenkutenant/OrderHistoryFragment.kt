@@ -89,6 +89,7 @@ class OrderHistoryFragment : Fragment() {
                     binding.txtEmptyHOL.visibility = View.VISIBLE
                     binding.refreshLayoutHisOrders.isRefreshing = false
                     binding.recViewHisOrders.visibility = View.INVISIBLE
+                    binding.progressBarOrderHis.visibility = View.INVISIBLE
                 }
             },
             Response.ErrorListener {

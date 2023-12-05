@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCardDTS"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -52,8 +53,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/cardButtonDTS"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,28 +93,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtTenNameDTS"
+                android:id="@+id/txtUnitNameDTS"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/public_sans_semibold"
                 android:text="Nomor Unit (Nama)"
                 android:textColor="@color/blue_700"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView32S"
                 app:layout_constraintEnd_toStartOf="@+id/btnCallUnitDTS"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnCallUnitDTS" />
+                app:layout_constraintTop_toBottomOf="@+id/textView27S" />
 
             <TextView
                 android:id="@+id/textView32S"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:text="Tanggal Transaksi"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCallUnitDTS" />
+                app:layout_constraintTop_toBottomOf="@+id/txtUnitNameDTS" />
 
             <TextView
                 android:id="@+id/txtViewTrxDeliveryDTS"
@@ -168,10 +172,11 @@
                 android:id="@+id/txtTrxDateDTS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:text="22-10-2023 13:00"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCallUnitDTS" />
+                app:layout_constraintTop_toBottomOf="@+id/txtUnitNameDTS" />
 
             <TextView
                 android:id="@+id/txtFinishDateDTS"

@@ -90,6 +90,7 @@ class OrdersFragment : Fragment() {
                     binding.txtEmptyOL.visibility = View.VISIBLE
                     binding.refreshLayoutOrders.isRefreshing = false
                     binding.recViewOrders.visibility = View.INVISIBLE
+                    binding.progressBarOrder.visibility = View.INVISIBLE
                 }
             },
             Response.ErrorListener {

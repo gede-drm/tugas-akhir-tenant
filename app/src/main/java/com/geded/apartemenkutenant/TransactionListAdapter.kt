@@ -57,7 +57,7 @@ class TransactionListAdapter( val transactions:ArrayList<TransactionList>, val t
                 context?.startActivity(intent)
             }
             else{
-                val intent = Intent(this.context, DetailTransactionProductActivity::class.java)
+                val intent = Intent(this.context, DetailTransactionServiceActivity::class.java)
                 intent.putExtra(
                     DetailTransactionServiceActivity.TRANSACTION_ID,
                     transactions[position].id

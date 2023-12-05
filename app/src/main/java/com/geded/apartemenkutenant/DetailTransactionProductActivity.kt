@@ -104,7 +104,9 @@ class DetailTransactionProductActivity : AppCompatActivity() {
         binding.btnChangeStatusDTP.setOnClickListener {
             if(status != "" && delivery != ""){
                 if(status == "Belum dikonfirmasi"){
-                    updateStatus("prepare", "Diproses")
+                    if(paymentproofurl != "") {
+                        validateTransfer()
+                    }
                 }
                 else if(status == "Diproses"){
                     updateStatus("prepared", "Selesai diproses")
@@ -209,7 +211,7 @@ class DetailTransactionProductActivity : AppCompatActivity() {
                     }
                     else if(status == "Belum dikonfirmasi"){
                         binding.btnCancelDTP.isVisible = true
-                        binding.btnChangeStatusDTP.text = "Konfirmasi"
+                        binding.btnChangeStatusDTP.text = "Validasi Pembayaran & Konfirmasi"
                     }
                     else if(status == "Diproses"){
                         binding.btnCancelDTP.isVisible = false
@@ -336,6 +338,34 @@ class DetailTransactionProductActivity : AppCompatActivity() {
                     return params
                 }
             }
+        stringRequest.setShouldCache(false)
+        q.add(stringRequest)
+    }
+
+    fun validateTransfer(){
+        val q = Volley.newRequestQueue(this)
+        val url = Global.urlWS + "transaction/validatetransfer"
+
+        var stringRequest = object : StringRequest(
+            Method.POST, url, Response.Listener {
+                Log.d("VOLLEY", it)
+                val obj = JSONObject(it)
+                if (obj.getString("status") == "success") {
+                    Toast.makeText(this, "Validasi Pembayaran Berhasil!", Toast.LENGTH_SHORT).show()
+                    updateStatus("prepare", "Diproses")
+                }
+                else{
+                    Toast.makeText(this, "Terdapat Gangguan, Coba Beberapa Saat Lagi!", Toast.LENGTH_SHORT).show()
+                }}, Response.ErrorListener {
+                Toast.makeText(this, "Terdapat Gangguan, Coba Beberapa Saat Lagi!", Toast.LENGTH_SHORT).show()
+            }){
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["transaction_id"] = transaction_id.toString()
+                params["token"] = token
+                return params
+            }
+        }
         stringRequest.setShouldCache(false)
         q.add(stringRequest)
     }
