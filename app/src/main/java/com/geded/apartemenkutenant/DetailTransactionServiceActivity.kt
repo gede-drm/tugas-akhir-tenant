@@ -20,6 +20,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.geded.apartemenkutenant.databinding.ActivityDetailTransactionServiceBinding
+import com.geded.apartemenkutenant.databinding.ActivityProposePermissionBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
@@ -149,6 +150,12 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                         if(status == "Belum dikonfirmasi") {
                             updateStatus("confirmed", "Dikonfirmasi")
                         }
+                        else if(status == "Dikonfirmasi") {
+                            val intent = Intent(this, ProposePermissionActivity::class.java)
+                            intent.putExtra(ProposePermissionActivity.TRANSACTION_ID, transaction_id)
+                            intent.putExtra(ProposePermissionActivity.FINISH_DATE, binding.txtFinishDateDTS.text.toString())
+                            startActivity(intent)
+                        }
                         else if(status == "Menunggu Pengerjaan") {
                             updateStatus("process", "Sedang dikerjakan")
                         }
@@ -218,8 +225,8 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                     }
 
                     if(delivery == "delivery"){
-                        binding.txtViewTrxDeliveryDTS.text = "Tanggal Kirim"
-                        binding.txtDeliveryDTS.text = "Kirim"
+                        binding.txtViewTrxDeliveryDTS.text = "Tanggal Pengerjaan"
+                        binding.txtDeliveryDTS.text = "Pengerjaan di tempat"
                     }
                     else{
                         if(dataObj.getString("svc_type") == "laundry"){
