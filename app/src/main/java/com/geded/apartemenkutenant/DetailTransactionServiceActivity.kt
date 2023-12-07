@@ -1,14 +1,17 @@
 package com.geded.apartemenkutenant
 
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,10 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
     var permit_need = 0
     var delivery = ""
     var status = ""
+    var permission_status = ""
+    var permission_approval_date = ""
+    var permission_letter_url = ""
+    var permission_qr_url = ""
     var transaction_id = 0
     var token = ""
     companion object{
@@ -52,6 +59,8 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
         token = shared.getString(LoginActivity.TOKEN.toString(),"").toString()
 
         transaction_id = intent.getIntExtra(TRANSACTION_ID, 0)
+
+        binding.btnPermissionDetailDT.isVisible = false
 
         binding.btnCallUnitDTS.setOnClickListener {
             if(unitphonenum != "") {
@@ -189,6 +198,69 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                 cancelTransaction()
             }
         }
+        binding.btnPermissionDetailDT.setOnClickListener {
+            if(permission_status != null && permission_approval_date != null && permission_letter_url != null){
+                if(permission_status == "accept"){
+                    val dialog = BottomSheetDialog(this)
+                    val view = layoutInflater.inflate(R.layout.bottom_sheet_permsision_detail, null)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(view)
+                    dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    dialog.show()
+
+                    val txtTitlePermDetail = view.findViewById<TextView>(R.id.txtTitlePermDetail)
+                    txtTitlePermDetail.text = "Perizinan diterima pada $permission_approval_date"
+
+                    val imgQRDT = view.findViewById<ImageView>(R.id.imgQRPermDetail)
+                    Picasso.get().load(permission_qr_url).into(imgQRDT)
+                    imgQRDT.isVisible = true
+
+                    view.findViewById<ImageView>(R.id.txtInfoQRPermDetail).isVisible = true
+
+                    view.findViewById<Button>(R.id.btnDownloadPerm).setOnClickListener {
+                        val uri = Uri.parse(permission_letter_url)
+                        val request: DownloadManager.Request = DownloadManager.Request(uri)
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        request.setTitle("ApartemenKu Tenant - Perizinan")
+                        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "Perizinan-$transaction_id.pdf");
+                        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                        dm.enqueue(request)
+                    }
+
+                    view.findViewById<Button>(R.id.btnCloseDialogPerm).setOnClickListener {
+                        dialog.dismiss()
+                    }
+                }
+                else{
+                    val dialog = BottomSheetDialog(this)
+                    val view = layoutInflater.inflate(R.layout.bottom_sheet_permsision_detail, null)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(view)
+                    dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    dialog.show()
+
+                    val txtTitlePermDetail = view.findViewById<TextView>(R.id.txtTitlePermDetail)
+                    txtTitlePermDetail.text = "Perizinan ditolak pada $permission_approval_date"
+
+                    view.findViewById<ImageView>(R.id.imgQRPermDetail).isVisible = false
+                    view.findViewById<ImageView>(R.id.txtInfoQRPermDetail).isVisible = false
+
+                    view.findViewById<Button>(R.id.btnDownloadPerm).setOnClickListener {
+                        val uri = Uri.parse(permission_letter_url)
+                        val request: DownloadManager.Request = DownloadManager.Request(uri)
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        request.setTitle("Downloading Surat Perizinan")
+                        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOCUMENTS, "Perizinan-$transaction_id.pdf");
+                        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                        dm.enqueue(request)
+                    }
+
+                    view.findViewById<Button>(R.id.btnCloseDialogPerm).setOnClickListener {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -285,6 +357,19 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                     }
                     else{
                         if(permit_need == 1){
+                            if(dataObj.getString("permission_status") == "accept" || dataObj.getString("permission_status")  == "reject"){
+                                binding.btnPermissionDetailDT.isVisible = true
+                                permission_status = dataObj.getString("permission_status")
+                                permission_approval_date = dataObj.getString("permission_approval_date")
+                                permission_letter_url = dataObj.getString("permission_letter")
+                                if(permission_status == "accept") {
+                                    permission_qr_url = dataObj.getString("permission_qr")
+                                }
+                            }
+                            else{
+                                binding.btnPermissionDetailDT.isVisible = false
+                            }
+
                             if(status == "Dikonfirmasi") {
                                 binding.btnCancelDTS.isVisible = false
                                 binding.btnChangeStatusDTS.text = "Ajukan Perizinan"
