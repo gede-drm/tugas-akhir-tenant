@@ -107,6 +107,9 @@ class DetailTransactionProductActivity : AppCompatActivity() {
                     if(paymentproofurl != "") {
                         validateTransfer()
                     }
+                    else{
+                        updateStatus("prepare", "Diproses")
+                    }
                 }
                 else if(status == "Diproses"){
                     updateStatus("prepared", "Selesai diproses")
@@ -211,7 +214,12 @@ class DetailTransactionProductActivity : AppCompatActivity() {
                     }
                     else if(status == "Belum dikonfirmasi"){
                         binding.btnCancelDTP.isVisible = true
-                        binding.btnChangeStatusDTP.text = "Validasi Pembayaran & Konfirmasi"
+                        if(dataObj.getString("payment") == "transfer") {
+                            binding.btnChangeStatusDTP.text = "Validasi Pembayaran & Konfirmasi"
+                        }
+                        else{
+                            binding.btnChangeStatusDTP.text = " Konfirmasi"
+                        }
                     }
                     else if(status == "Diproses"){
                         binding.btnCancelDTP.isVisible = false
