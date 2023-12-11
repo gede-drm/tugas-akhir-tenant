@@ -5,7 +5,11 @@ import java.text.DecimalFormat
 class Helper {
     companion object{
         fun formatter(n: Double): String {
-            return DecimalFormat("#,###.00").format(n)
+            if(n == 0.0){
+                return "0.00"
+            }else {
+                return DecimalFormat("#,###.00").format(n)
+            }
         }
     }
 }
