@@ -60,6 +60,10 @@ class SettingFragment : Fragment() {
         binding.btnSwitchStatus.setOnClickListener {
             changeStatus()
         }
+        binding.btnDashboardRev.setOnClickListener {
+            val intent = Intent(activity, RevenueDashboardActivity::class.java)
+            startActivity(intent)
+        }
         binding.btnLogout.setOnClickListener {
             var shared: SharedPreferences = requireActivity().getSharedPreferences(Global.sharedFile, Context.MODE_PRIVATE)
             var editor: SharedPreferences.Editor = shared.edit()
@@ -127,6 +131,8 @@ class SettingFragment : Fragment() {
         binding.btnSwitchStatus.isVisible = false
         binding.txtStatusSt.isVisible = false
 
+        binding.btnDashboardRev.isVisible = false
+
         getStatus()
         getProfile()
     }
@@ -172,6 +178,7 @@ class SettingFragment : Fragment() {
                     binding.txtPhoneSt.isVisible = true
                     binding.cardView.isVisible = true
                     binding.cardView2.isVisible = true
+                    binding.btnDashboardRev.isVisible = true
                 }
             },
             Response.ErrorListener {
