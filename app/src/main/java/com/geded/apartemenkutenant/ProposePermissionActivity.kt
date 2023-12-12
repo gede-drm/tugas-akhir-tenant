@@ -84,7 +84,7 @@ class ProposePermissionActivity : AppCompatActivity() {
                     val time = timePicker.hour.toString().padStart(2, '0') + ":" + timePicker.minute.toString().padStart(2, '0')
 
                     val c = Calendar.getInstance();
-                    val df = SimpleDateFormat("dd-MM-yyyy")
+                    val df = SimpleDateFormat("yyyy-MM-dd")
                     val tf = SimpleDateFormat("HH:mm");
                     val timeSelected = LocalTime.parse(time)
                     val timeNow = LocalTime.parse(tf.format(c.getTime()))
