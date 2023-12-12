@@ -195,7 +195,17 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
         }
         binding.btnCancelDTS.setOnClickListener {
             if(status != "") {
-                cancelTransaction()
+                val builder = AlertDialog.Builder(this)
+                builder.setCancelable(false)
+                builder.setTitle("Konfirmasi")
+                builder.setMessage("Apakah Anda Yakin untuk Membatalkan Transaksi?")
+                builder.setPositiveButton("BATALKAN") { dialog, which ->
+                    cancelTransaction()
+                }
+                builder.setNegativeButton("TETAP JALANKAN TRANSAKSI"){ dialog, which ->
+
+                }
+                builder.create().show()
             }
         }
         binding.btnPermissionDetailDT.setOnClickListener {
@@ -546,7 +556,7 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
 
     fun validateTransfer(){
         val q = Volley.newRequestQueue(this)
-        val url = Global.urlWS + "transaction/cancel"
+        val url = Global.urlWS + "transaction/validateTransfer"
 
         var stringRequest = object : StringRequest(
             Method.POST, url, Response.Listener {
@@ -573,7 +583,7 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
 
     fun cancelTransaction() {
         val q = Volley.newRequestQueue(this)
-        val url = Global.urlWS + "transaction/validatetransfer"
+        val url = Global.urlWS + "transaction/cancel"
 
         var stringRequest = object : StringRequest(
             Method.POST, url, Response.Listener {

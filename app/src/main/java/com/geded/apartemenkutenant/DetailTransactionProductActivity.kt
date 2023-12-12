@@ -138,7 +138,17 @@ class DetailTransactionProductActivity : AppCompatActivity() {
 
         binding.btnCancelDTP.setOnClickListener {
             if(status != "") {
-                cancelTransaction()
+                val builder = AlertDialog.Builder(this)
+                builder.setCancelable(false)
+                builder.setTitle("Konfirmasi")
+                builder.setMessage("Apakah Anda Yakin untuk Membatalkan Transaksi?")
+                builder.setPositiveButton("BATALKAN") { dialog, which ->
+                    cancelTransaction()
+                }
+                builder.setNegativeButton("TETAP JALANKAN TRANSAKSI"){ dialog, which ->
+
+                }
+                builder.create().show()
             }
         }
     }
