@@ -130,6 +130,9 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    else if(status == "Pembayaran Belum dikonfirmasi"){
+                        validateTransfer()
+                    }
                     else if(status == "Menunggu Pengambilan"){
                         updateStatus("pickup", "Sedang dilakukan Pengambilan")
                     }
@@ -165,6 +168,9 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                             intent.putExtra(ProposePermissionActivity.FINISH_DATE, binding.txtFinishDateDTS.text.toString())
                             startActivity(intent)
                         }
+                        else if(status == "Pembayaran Belum dikonfirmasi"){
+                            validateTransfer()
+                        }
                         else if(status == "Menunggu Pengerjaan") {
                             updateStatus("process", "Sedang dikerjakan")
                         }
@@ -175,10 +181,13 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                     else{
                         if(status == "Belum dikonfirmasi") {
                             if (paymethod == "transfer") {
-                                updateStatus("notranferproof", "Belum Pembayaran")
+                                updateStatus("notransferproof", "Belum Pembayaran")
                             } else {
                                 updateStatus("waiting", "Menunggu Pengerjaan")
                             }
+                        }
+                        else if(status == "Pembayaran Belum dikonfirmasi"){
+                            validateTransfer()
                         }
                         else if(status == "Menunggu Pengerjaan"){
                             updateStatus("process", "Menuju Lokasi")
@@ -443,9 +452,14 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
                             binding.btnChangeStatusDTS.isVisible = false
                         }
                     }
-                    else if(status == "Belum dikonfirmasi"){
+                    else if(status == "Belum dikonfirmasi" || status == "Pembayaran Belum dikonfirmasi"){
                         binding.btnCancelDTS.isVisible = true
-                        binding.btnChangeStatusDTS.text = "Konfirmasi"
+                        if(status == "Belum dikonfirmasi") {
+                            binding.btnChangeStatusDTS.text = "Konfirmasi"
+                        }
+                        else{
+                            binding.btnChangeStatusDTS.text = "Konfirmasi Pembayaran"
+                        }
                     }
                     else if(status == "Dibatalkan" || status=="Selesai"){
                         binding.btnCallUnitDTS.isVisible = false
@@ -556,7 +570,7 @@ class DetailTransactionServiceActivity : AppCompatActivity() {
 
     fun validateTransfer(){
         val q = Volley.newRequestQueue(this)
-        val url = Global.urlWS + "transaction/validateTransfer"
+        val url = Global.urlWS + "transaction/validatetransfer"
 
         var stringRequest = object : StringRequest(
             Method.POST, url, Response.Listener {
